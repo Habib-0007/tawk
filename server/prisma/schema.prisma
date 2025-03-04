@@ -1,0 +1,35 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Thread {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  messages  Message[]
+}
+
+model Message {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  content    String?
+  fileUrl    String?
+  fileType   FileType?
+  fileName   String?
+  fileSize   Int?
+  createdAt  DateTime @default(now())
+  thread     Thread   @relation(fields: [threadId], references: [id])
+  threadId   String   @db.ObjectId
+}
+
+enum FileType {
+  IMAGE
+  VIDEO
+  AUDIO
+  DOCUMENT
+}
