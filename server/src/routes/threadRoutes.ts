@@ -4,7 +4,6 @@ import asyncHandler from "../utils/asyncHandler";
 
 const router = express.Router();
 
-// Create a new anonymous thread
 router.post(
   "/",
   asyncHandler(async (req, res) => {
@@ -20,7 +19,6 @@ router.post(
   })
 );
 
-// Get thread details by slug
 router.get(
   "/:slug",
   asyncHandler(async (req, res) => {

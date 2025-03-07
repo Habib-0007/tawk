@@ -1,28 +1,41 @@
 import { Request, Response, NextFunction } from "express";
 
-class AppError extends Error {
+export class AppError extends Error {
   statusCode: number;
 
   constructor(message: string, statusCode: number) {
     super(message);
     this.statusCode = statusCode;
+    this.name = this.constructor.name;
+    Error.captureStackTrace(this, this.constructor);
   }
 }
 
-const errorHandler = (
-  err: AppError,
+export const errorHandler = (
+  err: Error,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const statusCode = err.statusCode || 500;
-  const message = err.message || "Internal Server Error";
+  console.error("Error:", err);
 
-  res.status(statusCode).json({
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({
+      status: "error",
+      message: err.message,
+    });
+  }
+
+  if (err.name === "MulterError") {
+    return res.status(400).json({
+      status: "error",
+      message: `File upload error: ${err.message}`,
+    });
+  }
+
+  return res.status(500).json({
     status: "error",
-    statusCode,
-    message,
+    message: "An unexpected error occurred",
+    error: process.env.NODE_ENV === "development" ? err.message : undefined,
   });
 };
-
-export { AppError, errorHandler };

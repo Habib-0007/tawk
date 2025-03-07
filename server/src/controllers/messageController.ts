@@ -7,7 +7,6 @@ class MessageController {
     content?: string,
     file?: Express.Multer.File
   ) {
-    // Validate input
     if (!threadId) {
       throw new AppError("Thread ID is required", 400);
     }

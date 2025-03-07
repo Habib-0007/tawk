@@ -21,33 +21,55 @@ class MessageService {
         throw new AppError("Message must have content or a file", 400);
       }
 
-      let fileDetails;
+      let fileDetails = null;
       if (file) {
-        fileDetails = await FileUploadService.uploadToGoFile(file);
+        console.log(
+          `Processing file for thread ${threadId}: ${file.originalname}`
+        );
+        fileDetails = await FileUploadService.uploadToCloudinary(file);
+        console.log("File upload successful:", fileDetails);
       }
 
-      return await prisma.message.create({
+      const message = await prisma.message.create({
         data: {
           content: content || null,
           threadId,
-          fileUrl: fileDetails?.fileUrl,
-          fileName: fileDetails?.fileName,
-          fileType: fileDetails
-            ? FileUploadService.getFileType(file!.mimetype)
-            : null,
-          fileSize: file?.size,
+          fileUrl: fileDetails?.fileUrl || null,
+          fileName: fileDetails?.fileName || null,
+          fileType: file ? FileUploadService.getFileType(file.mimetype) : null,
+          fileSize: file?.size || null,
         },
       });
+
+      console.log(`Message created successfully: ${message.id}`);
+      return message;
     } catch (error) {
-      throw new AppError("Failed to create message", 500);
+      console.error("Message creation error:", error);
+      if (error instanceof AppError) {
+        throw error;
+      }
+      throw new AppError(
+        `Failed to create message: ${
+          (error as Error).message || "Unknown error"
+        }`,
+        500
+      );
     }
   }
 
   async getThreadMessages(threadId: string) {
-    return await prisma.message.findMany({
-      where: { threadId },
-      orderBy: { createdAt: "desc" },
-    });
+    try {
+      return await prisma.message.findMany({
+        where: { threadId },
+        orderBy: { createdAt: "desc" },
+      });
+    } catch (error) {
+      console.error("Error fetching thread messages:", error);
+      throw new AppError(
+        `Failed to fetch thread messages: ${(error as Error).message}`,
+        500
+      );
+    }
   }
 }
 

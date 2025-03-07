@@ -1,4 +1,3 @@
-
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -8,11 +7,9 @@ import threadRoutes from "./routes/threadRoutes";
 
 const app = express();
 
-
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
-
 
 app.use("/api/threads", threadRoutes);
 app.use("/api/messages", messageRoutes);

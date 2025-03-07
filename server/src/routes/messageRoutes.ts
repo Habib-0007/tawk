@@ -13,6 +13,8 @@ router.post(
     const { content } = req.body;
     const file = req.file;
 
+    console.log("Received file:", file);
+
     const message = await MessageController.createMessage(
       threadId,
       content,
