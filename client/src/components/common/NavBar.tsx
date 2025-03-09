@@ -168,7 +168,10 @@ const NavBar = () => {
                 <>
                   <Link
                     to="/signin"
-                    className="text-gray-600 hover:text-indigo-600 font-medium transition-colors"
+                    className={`${isScrolled
+                    ? "text-gray-400 hover:text-indigo-600"
+                    : "text-white hover:text-indigo-100"
+                }  font-medium transition-colors`}
                   >
                     Sign In
                   </Link>
