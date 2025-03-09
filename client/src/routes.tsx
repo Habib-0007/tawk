@@ -1,24 +1,3 @@
-// import React from "react";
-// import { Routes, Route, Navigate } from "react-router-dom";
-// import CreatePage from "./pages/CreatePage";
-// import ThreadPage from "./pages/ThreadPage";
-// import ViewMessages from "./pages/ViewMessages";
-
-// const AppRoutes: React.FC = () => {
-//   return (
-//     <Routes>
-//       <Route path="/" element={<CreatePage />} />
-//       <Route path="/thread/:slug" element={<ThreadPage />} />
-//       <Route path="/messages/:slug" element={<ViewMessages />} />
-//       <Route path="*" element={<Navigate to="/" replace />} />
-//     </Routes>
-//   );
-// };
-
-// export default AppRoutes;
-
-"use client";
-
 import type React from "react";
 import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -32,7 +11,7 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import DashboardPage from "./pages/DashboardPage";
 import CreatePage from "./pages/CreatePage";
-import ThreadPage from "./pages/ThreadPage";
+import ShowThreadPage from "./pages/ShowThreadPage";
 import ViewMessagesPage from "./pages/ViewMessages";
 import LandingPage from "./pages/LandingPage";
 import ThreadLinkPage from "./pages/ThreadLinkPage";
@@ -102,7 +81,7 @@ const AppRoutes: React.FC = () => {
 
       <Route path="/thread/:slug" element={<ThreadLinkPage />} />
 
-      <Route path="/thread/send-message/:slug" element={<ThreadPage />} />
+      <Route path="/thread/send-message/:slug" element={<ShowThreadPage />} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>
