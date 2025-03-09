@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -13,14 +13,15 @@ const CreateThread: React.FC = () => {
   const createThreadMutation = useMutation({
     mutationFn: createThread,
     onSuccess: (thread) => {
-      console.log("Thread created:", thread);
       addThread(thread);
       toast.success("Thread created successfully!");
       navigate(`/thread/${thread.data.slug}`);
     },
-    onError: (error) => {
-      console.error("Error creating thread:", error);
-      toast.error("Failed to create thread. Please try again.");
+    onError: (error: any) => {
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to create thread. Please try again."
+      );
     },
   });
 

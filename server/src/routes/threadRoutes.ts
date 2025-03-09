@@ -1,35 +1,14 @@
 import express from "express";
 import ThreadController from "../controllers/threadController";
-import asyncHandler from "../utils/asyncHandler";
+import { protect } from "../middlewares/authMiddleware";
 
 const router = express.Router();
 
-router.post(
-  "/",
-  asyncHandler(async (req, res) => {
-    const thread = await ThreadController.createThread();
+// Protected routes (require authentication)
+router.post("/", protect, ThreadController.createThread);
+router.get("/my-thread", protect, ThreadController.getUserThread);
 
-    res.status(201).json({
-      status: "success",
-      data: {
-        id: thread.id,
-        slug: thread.slug,
-      },
-    });
-  })
-);
-
-router.get(
-  "/:slug",
-  asyncHandler(async (req, res) => {
-    const { slug } = req.params;
-    const thread = await ThreadController.findThreadBySlug(slug);
-
-    res.status(200).json({
-      status: "success",
-      data: thread,
-    });
-  })
-);
+// Public routes
+router.get("/:slug", ThreadController.findThreadBySlug);
 
 export default router;

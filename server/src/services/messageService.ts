@@ -1,3 +1,4 @@
+// src/services/messageService.ts
 import prisma from "../config/database";
 import { AppError } from "../middlewares/errorHandler";
 import FileUploadService from "./fileUploadService";
@@ -6,7 +7,8 @@ class MessageService {
   async createMessage(
     threadId: string,
     content?: string,
-    file?: Express.Multer.File
+    file?: Express.Multer.File,
+    userId?: string
   ) {
     try {
       const thread = await prisma.thread.findUnique({
@@ -38,6 +40,7 @@ class MessageService {
           fileName: fileDetails?.fileName || null,
           fileType: file ? FileUploadService.getFileType(file.mimetype) : null,
           fileSize: file?.size || null,
+          createdBy: userId || null, // Track the user who created the message
         },
       });
 
@@ -57,8 +60,13 @@ class MessageService {
     }
   }
 
-  async getThreadMessages(threadId: string) {
+  async getThreadMessages(threadId: string, isOwner: boolean) {
     try {
+      // Only thread owners can see messages
+      if (!isOwner) {
+        throw new AppError("You do not have permission to view these messages", 403);
+      }
+
       return await prisma.message.findMany({
         where: { threadId },
         orderBy: { createdAt: "desc" },

@@ -1,17 +1,24 @@
-import React, { useEffect } from "react";
+import type React from "react";
+import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { useAuthStore } from "../store/authSore";
+import { useThreadStore } from "../store/threadStore";
 import PageContainer from "../components/layout/PageContainer";
 import CreateThread from "../components/thread/CreateThread";
-import { useThreadStore } from "../store/threadStore";
 
 const CreatePage: React.FC = () => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const clearExpiredThreads = useThreadStore(
     (state) => state.clearExpiredThreads
   );
 
   useEffect(() => {
-    // Clean up expired threads when the component mounts
     clearExpiredThreads();
   }, [clearExpiredThreads]);
+
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
 
   return (
     <PageContainer>

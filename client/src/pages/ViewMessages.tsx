@@ -1,29 +1,37 @@
-import React from "react";
+import type React from "react";
 import { useParams, Navigate, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getThreadBySlug } from "../api/threadApi";
-// import { getThreadMessages } from "../api/messageApi";
+import { useAuthStore } from "../store/authSore";
 import { useThreadStore } from "../store/threadStore";
 import PageContainer from "../components/layout/PageContainer";
 import MessageList from "../components/thread/MessageList";
 
-const ViewMessages: React.FC = () => {
+const ViewMessagesPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const storedThread = useThreadStore((state) => state.getThread(slug || ""));
 
-  const {
-    data: thread,
-    isLoading: isThreadLoading,
-    isError: isThreadError,
-  } = useQuery({
+  // Redirect to sign in if not authenticated
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
+
+  const queryResult = useQuery({
     queryKey: ["thread", slug],
     queryFn: () => getThreadBySlug(slug || ""),
     enabled: !!slug && !storedThread,
     initialData: storedThread,
   });
 
+  const {
+    data: thread,
+    isLoading: isThreadLoading,
+    isError: isThreadError,
+  } = queryResult;
+
   if (!slug) {
-    return <Navigate to="/" />;
+    return <Navigate to="/dashboard" />;
   }
 
   if (isThreadLoading) {
@@ -45,10 +53,10 @@ const ViewMessages: React.FC = () => {
           </p>
           <div className="flex justify-center">
             <Link
-              to="/"
+              to="/dashboard"
               className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
-              Create New Thread
+              Return to Dashboard
             </Link>
           </div>
         </div>
@@ -83,4 +91,4 @@ const ViewMessages: React.FC = () => {
   );
 };
 
-export default ViewMessages;
+export default ViewMessagesPage;

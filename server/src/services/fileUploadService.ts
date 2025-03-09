@@ -4,6 +4,7 @@ import path from "path";
 import { AppError } from "../middlewares/errorHandler";
 import { FileType } from "@prisma/client";
 import { v2 as cloudinary } from "cloudinary";
+import { env } from "../config/environment";
 
 const uploadDir = path.join(__dirname, "../uploads");
 if (!fs.existsSync(uploadDir)) {
@@ -11,10 +12,13 @@ if (!fs.existsSync(uploadDir)) {
   console.log(`Created uploads directory at: ${uploadDir}`);
 }
 
+const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } =
+  env;
+
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: CLOUDINARY_CLOUD_NAME,
+  api_key: CLOUDINARY_API_KEY,
+  api_secret: CLOUDINARY_API_SECRET,
 });
 
 class FileUploadService {
@@ -60,9 +64,9 @@ class FileUploadService {
       this.validateFile(file);
 
       if (
-        !process.env.CLOUDINARY_CLOUD_NAME ||
-        !process.env.CLOUDINARY_API_KEY ||
-        !process.env.CLOUDINARY_API_SECRET
+        !CLOUDINARY_CLOUD_NAME ||
+        !CLOUDINARY_API_KEY ||
+        !CLOUDINARY_API_SECRET
       ) {
         throw new AppError("Cloudinary credentials not configured", 500);
       }

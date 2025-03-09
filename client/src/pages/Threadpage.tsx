@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getThreadBySlug } from "../api/threadApi";
@@ -17,16 +17,13 @@ const ThreadPage: React.FC = () => {
   } = useQuery({
     queryKey: ["thread", slug],
     queryFn: () => getThreadBySlug(slug || ""),
-    // onSuccess: (data) => {
-    //   addThread(data);
-    // },
     select: (data) => {
       if (data) {
         addThread(data);
       }
       return data;
     },
-    // enabled: !!slug,
+    enabled: !!slug,
   });
 
   if (!slug) {

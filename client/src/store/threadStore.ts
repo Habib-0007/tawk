@@ -1,4 +1,3 @@
-// src/store/threadStore.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Thread } from "../types/thread.types";
@@ -24,7 +23,7 @@ export const useThreadStore = create<ThreadState>()(
       },
 
       getThread: (slug: string) => {
-        return get().threads.find((thread) => thread.slug === slug);
+        return get().threads.find((thread: any) => thread.slug === slug);
       },
 
       clearExpiredThreads: () => {
