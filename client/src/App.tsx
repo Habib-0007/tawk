@@ -7,6 +7,7 @@ import { useAuthStore } from "./store/authSore";
 import { setAuthToken } from "./api/authApi";
 import AppRoutes from "./routes";
 import "./App.css";
+import ScrollToTop from "./helpers/ScrollToTop";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,27 +31,12 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <ScrollToTop />
         <AppRoutes />
         <Toaster
           position="top-right"
           toastOptions={{
             duration: 4000,
-            style: {
-              background: "#363636",
-              color: "#fff",
-            },
-            success: {
-              iconTheme: {
-                primary: "#10B981",
-                secondary: "#FFFFFF",
-              },
-            },
-            error: {
-              iconTheme: {
-                primary: "#EF4444",
-                secondary: "#FFFFFF",
-              },
-            },
           }}
         />
       </BrowserRouter>

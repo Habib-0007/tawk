@@ -45,33 +45,6 @@ const ThreadPage: React.FC = () => {
           </div>
         ) : (
           <>
-            <div className="bg-white shadow rounded-lg p-6 mb-6">
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                Share This Thread
-              </h2>
-              <div className="flex items-center">
-                <input
-                  type="text"
-                  readOnly
-                  value={`${window.location.origin}/thread/${thread?.data.slug}`}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                />
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      `${window.location.origin}/thread/${thread?.data?.slug}`
-                    );
-                  }}
-                  className="bg-indigo-600 text-white px-4 py-2 rounded-r-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  Copy
-                </button>
-              </div>
-              <p className="mt-4 text-sm text-gray-500">
-                Share this link with your friends to receive anonymous messages.
-              </p>
-            </div>
-
             <MessageForm threadId={thread?.data?.id || ""} />
           </>
         )}

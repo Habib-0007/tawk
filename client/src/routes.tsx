@@ -34,6 +34,13 @@ import DashboardPage from "./pages/DashboardPage";
 import CreatePage from "./pages/CreatePage";
 import ThreadPage from "./pages/ThreadPage";
 import ViewMessagesPage from "./pages/ViewMessages";
+import LandingPage from "./pages/LandingPage";
+import ThreadLinkPage from "./pages/ThreadLinkPage";
+import AboutUsPage from "./pages/AboutUsPage";
+import ContactUsPage from "./pages/ContactUsPage";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import NotFound from "./pages/NotFound";
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -58,10 +65,15 @@ const AppRoutes: React.FC = () => {
 
   return (
     <Routes>
+      <Route path="/" element={<LandingPage />} />
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+      <Route path="/about" element={<AboutUsPage />} />
+      <Route path="/contact" element={<ContactUsPage />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/terms" element={<TermsOfService />} />
 
       <Route
         path="/dashboard"
@@ -72,7 +84,7 @@ const AppRoutes: React.FC = () => {
         }
       />
       <Route
-        path="/"
+        path="/create"
         element={
           <ProtectedRoute>
             <CreatePage />
@@ -88,12 +100,11 @@ const AppRoutes: React.FC = () => {
         }
       />
 
-      <Route path="/thread/:slug" element={<ThreadPage />} />
+      <Route path="/thread/:slug" element={<ThreadLinkPage />} />
 
-      <Route
-        path="*"
-        element={<Navigate to={isAuthenticated ? "/dashboard" : "/signin"} />}
-      />
+      <Route path="/thread/send-message/:slug" element={<ThreadPage />} />
+
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

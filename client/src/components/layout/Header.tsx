@@ -2,6 +2,8 @@ import type React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../store/authSore";
 import { setAuthToken } from "../../api/authApi";
+import { MessageCircle } from "lucide-react";
+import Button from "../common/Button";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -18,18 +20,20 @@ const Header: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
-            <Link to="/" className="flex-shrink-0 flex items-center">
-              <h1 className="text-xl font-bold text-indigo-600">Tawk</h1>
+            <Link to="/" className="flex items-center">
+              <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center mr-2">
+                <MessageCircle color="#fff" width={20} height={20} />
+              </div>
+              <span className="text-xl font-bold text-gray-900">Tawkapp</span>
             </Link>
           </div>
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <>
-                <Link
-                  to="/dashboard"
-                  className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Dashboard
+                <Link to="/dashboard">
+                  <Button variant="primary" size="sm">
+                    Dashboard
+                  </Button>
                 </Link>
                 <div className="relative group">
                   <button className="flex items-center text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">

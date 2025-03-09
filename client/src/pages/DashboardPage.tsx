@@ -6,6 +6,8 @@ import { getUserThread } from "../api/authApi";
 import { useThreadStore } from "../store/threadStore";
 import PageContainer from "../components/layout/PageContainer";
 import Button from "../components/common/Button";
+import CopyToClipboard from "../components/common/CopyToClipboard";
+import toast from "react-hot-toast";
 
 const DashboardPage: React.FC = () => {
   const addThread = useThreadStore((state) => state.addThread);
@@ -17,18 +19,9 @@ const DashboardPage: React.FC = () => {
     clearExpiredThreads();
   }, [clearExpiredThreads]);
 
-  const {
-    data: threadData,
-    isLoading,
-    // isError,
-  } = useQuery({
+  const { data: threadData, isLoading } = useQuery({
     queryKey: ["userThread"],
     queryFn: getUserThread,
-    // onSuccess: (data) => {
-    //   if (data?.data) {
-    //     addThread(data);
-    //   }
-    // },
     select: (data) => {
       if (data?.data) {
         addThread(data);
@@ -38,6 +31,9 @@ const DashboardPage: React.FC = () => {
   });
 
   const thread = threadData?.data;
+  const threadlink = thread
+    ? `${window.location.origin}/thread/send-message/${thread.slug}}`
+    : "";
 
   return (
     <PageContainer>
@@ -65,22 +61,13 @@ const DashboardPage: React.FC = () => {
                 </p>
 
                 <div className="flex items-center mb-4">
-                  <input
-                    type="text"
-                    readOnly
-                    value={`${window.location.origin}/thread/${thread.slug}`}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  />
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(
-                        `${window.location.origin}/thread/${thread.slug}`
-                      );
+                  <CopyToClipboard
+                    value={threadlink}
+                    handleCopy={() => {
+                      navigator.clipboard.writeText(threadlink);
+                      toast.success("Link copied successfully");
                     }}
-                    className="bg-indigo-600 text-white px-4 py-2 rounded-r-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  >
-                    Copy
-                  </button>
+                  />
                 </div>
 
                 <div className="flex space-x-4">
@@ -121,7 +108,7 @@ const DashboardPage: React.FC = () => {
                 <li className="flex items-start">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-indigo-500 mr-2 mt-0.5"
+                    className="h-5 w-5 text-indigo-500 mr-2 mt-0.5 shrink-0"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -138,7 +125,7 @@ const DashboardPage: React.FC = () => {
                 <li className="flex items-start">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-indigo-500 mr-2 mt-0.5"
+                    className="h-5 w-5 text-indigo-500 mr-2 mt-0.5 shrink-0"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -155,7 +142,7 @@ const DashboardPage: React.FC = () => {
                 <li className="flex items-start">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-indigo-500 mr-2 mt-0.5"
+                    className="h-5 w-5 text-indigo-500 mr-2 mt-0.5 shrink-0"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -172,7 +159,7 @@ const DashboardPage: React.FC = () => {
                 <li className="flex items-start">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-indigo-500 mr-2 mt-0.5"
+                    className="h-5 w-5 text-indigo-500 mr-2 mt-0.5 shrink-0"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

@@ -5,6 +5,7 @@ import prisma from "../config/database";
 import { AppError } from "../middlewares/errorHandler";
 import nodemailer from "nodemailer";
 import { env } from "../config/environment";
+import { getPasswordResetTemplate } from "../utils/getPasswordResetTemplate";
 
 class AuthService {
   private readonly JWT_SECRET = env.JWT_SECRET || "your-secret-key";
@@ -107,14 +108,14 @@ class AuthService {
 
     // Email content
     const resetURL = `${env.FRONTEND_URL}/reset-password/${resetToken}`;
-    const message = `Forgot your password? Reset it here: ${resetURL}.\nIf you didn't request this, ignore this email.`;
 
     try {
       await transporter.sendMail({
         from: env.EMAIL_FROM || `"Support" <${env.EMAIL_USER}>`,
         to: user.email,
         subject: "Your password reset token (valid for 1 hour)",
-        text: message,
+        // text: message,
+        html: getPasswordResetTemplate(resetURL, user.email),
       });
     } catch (error) {
       await prisma.user.update({

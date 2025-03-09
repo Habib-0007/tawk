@@ -1,4 +1,3 @@
-// src/components/common/FileUpload.tsx
 import React, { useRef, useState } from "react";
 
 interface FileUploadProps {

@@ -83,7 +83,10 @@ const MessageCard: React.FC<MessageCardProps> = ({ message }) => {
         className="bg-white rounded-lg shadow-md p-4 border border-gray-200"
       >
         <div className="flex justify-between items-start mb-2">
-          <span className="text-xs text-gray-500">{date}</span>
+          <div className="flex justify-start items-center gap-2">
+            <h1 className="text-md font-bold text-indigo-600">Tawkapp</h1>
+            <span className="text-xs text-gray-500">{date}</span>
+          </div>
           <button
             onClick={handleDownload}
             className="text-gray-400 hover:text-gray-600"
