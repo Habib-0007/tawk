@@ -56,7 +56,7 @@ export const resetPassword = async (
   return data;
 };
 
-export const getUserThread = async (): Promise<any> => {
+export const getUserThread = async () => {
   const { data } = await api.get("/threads/my-thread");
   return data;
 };

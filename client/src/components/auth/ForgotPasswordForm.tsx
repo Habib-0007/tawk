@@ -21,7 +21,7 @@ const ForgotPasswordForm: React.FC = () => {
     onSuccess: () => {
       setIsSubmitted(true);
     },
-    onError: (error: any) => {
+    onError: (error: Error | any) => {
       toast.error(
         error.response?.data?.message ||
           "Failed to send reset email. Please try again."
