@@ -10,6 +10,7 @@ import MessageList from "../components/thread/MessageList";
 const ViewMessagesPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const { user } = useAuthStore();
   const storedThread = useThreadStore((state) => state.getThread(slug || ""));
 
   // Redirect to sign in if not authenticated
@@ -69,7 +70,7 @@ const ViewMessagesPage: React.FC = () => {
       <div className="max-w-2xl mx-auto">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Your Messages
+            Your Messages | {user?.name || user?.email}
           </h1>
           <p className="text-gray-600">
             View all anonymous messages sent to this thread.

@@ -50,7 +50,7 @@ const DashboardPage: React.FC = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
           </div>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2 mx-auto">
             {thread ? (
               <div className="bg-white shadow rounded-lg p-6">
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">
@@ -94,8 +94,8 @@ const DashboardPage: React.FC = () => {
                   You don't have an active thread. Create one to start receiving
                   anonymous messages.
                 </p>
-                <Link to="/">
-                  <Button className="w-full">Create New Thread</Button>
+                <Link to="/create">
+                  <Button className="w-full">New Thread</Button>
                 </Link>
               </div>
             )}

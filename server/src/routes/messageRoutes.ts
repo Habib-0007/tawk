@@ -8,7 +8,6 @@ const router = express.Router();
 router.post(
   "/:threadId",
   upload.single("file"),
-  protect,
   MessageController.createMessage
 );
 

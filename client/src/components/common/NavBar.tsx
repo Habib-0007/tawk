@@ -168,10 +168,11 @@ const NavBar = () => {
                 <>
                   <Link
                     to="/signin"
-                    className={`${isScrolled
-                    ? "text-gray-400 hover:text-indigo-600"
-                    : "text-white hover:text-indigo-100"
-                }  font-medium transition-colors`}
+                    className={`${
+                      isScrolled
+                        ? "text-gray-400 hover:text-indigo-600"
+                        : "text-white hover:text-indigo-100"
+                    }  font-medium transition-colors`}
                   >
                     Sign In
                   </Link>
@@ -202,7 +203,7 @@ const NavBar = () => {
             </Link>
             <Link
               to="/about"
-              className="text-indigo-600 font-medium"
+              className="text-gray-600 hover:text-indigo-600 transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               About Us

@@ -7,9 +7,20 @@ import {
   MessageCircleIcon,
   Twitter,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { setAuthToken } from "../../api/authApi";
+import { useAuthStore } from "../../store/authSore";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const { logout } = useAuthStore();
+
+  const handleLogout = () => {
+    logout();
+    setAuthToken(null);
+    navigate("/signin");
+  };
   return (
     <footer className="bg-gray-900 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -159,6 +170,13 @@ const Footer = () => {
                   </Link>
                 </li>
               </div>
+
+              <button
+                className="bg-red-100 hover:bg-red-200 text-red-600 mt-5 px-4 py-1 rounded-md"
+                onClick={handleLogout}
+              >
+                Sign Out
+              </button>
             </ul>
           </div>
         </div>
