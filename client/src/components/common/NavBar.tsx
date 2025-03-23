@@ -44,7 +44,7 @@ const NavBar = () => {
           isScrolled ? "bg-white shadow-md py-3" : "bg-indigo-600 py-5"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <Link to="/" className="flex items-center">
@@ -70,7 +70,7 @@ const NavBar = () => {
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden flex items-center ml-auto mr-4">
+            <div className="md:hidden flex items-center">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="text-gray-600 hover:text-indigo-600 focus:outline-none"
