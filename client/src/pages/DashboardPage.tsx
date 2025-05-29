@@ -52,7 +52,7 @@ const DashboardPage: React.FC = () => {
         ) : (
           <div className="grid gap-6 md:grid-cols-2 mx-auto">
             {thread ? (
-              <div className="bg-white shadow rounded-lg p-6">
+              <div className="bg-white shadow rounded-lg p-6 justify-self-center">
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">
                   Your Active Thread
                 </h2>
@@ -86,7 +86,7 @@ const DashboardPage: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="bg-white shadow rounded-lg p-6">
+              <div className="bg-white shadow rounded-lg p-6 justify-self-center">
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">
                   Create a Thread
                 </h2>
@@ -100,7 +100,7 @@ const DashboardPage: React.FC = () => {
               </div>
             )}
 
-            <div className="bg-white shadow rounded-lg p-6">
+            <div className="bg-white shadow rounded-lg p-6 justify-self-center">
               <h2 className="text-xl font-semibold text-gray-800 mb-4">
                 How It Works
               </h2>
