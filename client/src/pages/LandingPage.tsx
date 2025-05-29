@@ -49,7 +49,7 @@ const LandingPage: React.FC = () => {
               </div>
             </div>
             <div className="md:w-1/2 mt-12 md:mt-0">
-              <div className="relative">
+              {/* <div className="relative">
                 <div className="absolute -top-6 -left-6 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
                 <div className="absolute -bottom-8 -right-8 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
                 <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
@@ -60,7 +60,7 @@ const LandingPage: React.FC = () => {
                     className="rounded-lg shadow-2xl"
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
