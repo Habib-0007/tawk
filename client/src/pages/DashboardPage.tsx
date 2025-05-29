@@ -70,7 +70,7 @@ const DashboardPage: React.FC = () => {
                   />
                 </div>
 
-                <div className="flex space-x-4">
+                <div className="flex items-stretch md:items-center flex-col md:flex-row space-y-4 md:space-x-4">
                   <Link
                     to={`/thread/${thread.slug}`}
                     className="flex-1 text-center bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
