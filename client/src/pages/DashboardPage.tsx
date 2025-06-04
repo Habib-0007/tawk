@@ -32,7 +32,7 @@ const DashboardPage: React.FC = () => {
 
   const thread = threadData?.data;
   const threadlink = thread
-    ? `${window.location.origin}/thread/send-message/${thread.slug}}`
+    ? `${window.location.origin}/thread/send-message/${thread.slug}`
     : "";
 
   return (
